@@ -4,6 +4,7 @@ import {
   DEFAULT_DESCRIPTION,
   DEFAULT_HOME_TITLE,
   DEFAULT_KEYWORDS,
+  defaultOpenGraphImages,
 } from '@/lib/siteSeo';
 
 /** Site-wide defaults merged into the root layout metadata. */
@@ -17,5 +18,19 @@ export const rootMetadata = {
   keywords: DEFAULT_KEYWORDS.split(',').map((k) => k.trim()),
   authors: [{ name: SITE_NAME }],
   publisher: SITE_NAME,
-  // Favicon: use file-based metadata in src/app/ (favicon.ico, icon.png, apple-icon.png).
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    siteName: SITE_NAME,
+    title: DEFAULT_HOME_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: defaultOpenGraphImages,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: DEFAULT_HOME_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [defaultOpenGraphImages[0].url],
+    site: '@crescentek',
+  },
 };

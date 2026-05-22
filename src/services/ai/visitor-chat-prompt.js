@@ -20,7 +20,7 @@ export const SITE_KNOWLEDGE = `
 - General Email: help@crescentek.com
 - HR/Careers Email: hr@crescentek.com
 - WhatsApp: +91 9836900840 (https://wa.me/919836900840)
-- Contact Page: https://www.crescentek.com/contact
+- Contact Page: /contact
 
 ### SERVICES
 1. Custom Web Development — High-performance web apps, PWAs, and portals that scale
@@ -67,10 +67,10 @@ Vision: Be the most trusted digital partner for ambitious businesses worldwide. 
 - 2024: Launched AI & Automation practice
 
 ### PARTNERSHIPS
-- Technology and agency partnerships available. See: https://www.crescentek.com/partnership
+- Technology and agency partnerships available. See: /partnership
 
 ### PORTFOLIO / WORK
-- 200+ projects across industries. View at: https://www.crescentek.com/work
+- 200+ projects across industries. View at: /work
 `;
 
 export const SYSTEM_PROMPT = `You are a warm, professional AI assistant for Crescentek, a premium software development agency.

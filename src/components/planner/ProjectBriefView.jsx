@@ -6,6 +6,7 @@ import ProjectTimeline from './ProjectTimeline';
 import { sendBriefEmail, uploadBriefPdf } from '@/services/generationService';
 import CountryCodePicker from '@/components/forms/CountryCodePicker';
 import { COUNTRY_CODES } from '@/lib/countryCodes';
+import { SITE_BRAND_LABEL } from '@/lib/siteSeo';
 
 function Section({ title, children, defaultOpen = true }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -114,7 +115,7 @@ export default function ProjectBriefView({ brief, onRestart, answers, aiData: _a
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(7);
         doc.setTextColor(...GRAY);
-        doc.text('Project Brief  \u2022  crescentek.com', PAGE_W - MARGIN, 10, { align: 'right' });
+        doc.text(`Project Brief  \u2022  ${SITE_BRAND_LABEL}`, PAGE_W - MARGIN, 10, { align: 'right' });
       };
 
       const loadLogoDataUrl = async () => {
@@ -376,7 +377,7 @@ export default function ProjectBriefView({ brief, onRestart, answers, aiData: _a
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(6);
       doc.setTextColor(...GRAY);
-      doc.text('crescentek.com  \u00B7  Confidential  \u00B7  For recipient use only', PAGE_W / 2, PAGE_H - 16, { align: 'center' });
+      doc.text(`${SITE_BRAND_LABEL}  \u00B7  Confidential  \u00B7  For recipient use only`, PAGE_W / 2, PAGE_H - 16, { align: 'center' });
 
       // ══════════════════════════════════════════════════════════════════
       // PAGE 2 — INDEX (Editorial Single-Column List)
@@ -1220,7 +1221,7 @@ export default function ProjectBriefView({ brief, onRestart, answers, aiData: _a
         { label: 'CONTACT', value: 'Rajesh Bajaj' },
         { label: 'PHONE',   value: '+91 9836900840' },
         { label: 'EMAIL',   value: 'rajesh@crescentek.com' },
-        { label: 'WEB',     value: 'crescentek.com' },
+        { label: 'WEB',     value: SITE_BRAND_LABEL },
       ];
       const TY_STRIP_TOP = TY_GIT_Y + 10;
       const TY_COL_W = CONTENT_W / tyContacts.length;
@@ -1252,7 +1253,7 @@ export default function ProjectBriefView({ brief, onRestart, answers, aiData: _a
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(6.5);
       doc.setTextColor(...GRAY);
-      doc.text(`${tyDate}  \u00B7  crescentek.com  \u00B7  Confidential`, PAGE_W / 2, PAGE_H - 16, { align: 'center' });
+      doc.text(`${tyDate}  \u00B7  ${SITE_BRAND_LABEL}  \u00B7  Confidential`, PAGE_W / 2, PAGE_H - 16, { align: 'center' });
 
       // drawWatermark(); // WATERMARK DISABLED — code kept for future re-enabling
 

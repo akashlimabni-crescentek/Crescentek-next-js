@@ -461,7 +461,7 @@ export default function OrahellySportsSeoCaseStudy() {
               </p>
               <p className="text-warmgray text-sm">rajesh@crescentek.com</p>
               <p className="text-warmgray text-sm">+91 98369 00840</p>
-              <p className="text-warmgray text-sm">www.crescentek.com</p>
+              <p className="text-warmgray text-sm">Crescentek</p>
             </div>
           </RevealSection>
         </div>

@@ -47,7 +47,7 @@ export default function CustomCursor() {
     };
 
     const handleOver = (e) => {
-      setHovering(!!e.target.closest('a, button, [role="button"]'));
+      setHovering(!!e.target.closest('a, button, [role="button"], [data-form-picker-trigger]'));
     };
 
     window.addEventListener('mousemove', handleMove, { passive: true });

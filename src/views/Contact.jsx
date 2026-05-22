@@ -8,7 +8,9 @@ import RevealSection from '@/components/shared/RevealSection';
 import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 import { logToHubspot } from '@/services/hubspotService';
 import CountryCodePicker from '@/components/forms/CountryCodePicker';
+import FormSelectPicker from '@/components/forms/FormSelectPicker';
 import { COUNTRY_CODES } from '@/lib/countryCodes';
+import { CONTACT_PROJECT_TYPES, CONTACT_BUDGET_RANGES } from '@/lib/contactFormOptions';
 
 /** Public site key (same as legacy Base44 app — not stored in .env) */
 const RECAPTCHA_SITE_KEY = '6LcaJ7MsAAAAACoa_IENmDdOQ1dkd6MOdC9tVvNV';
@@ -60,17 +62,6 @@ function getSystemDetails() {
   };
 }
 
-const PROJECT_TYPES = [
-  'Web Application Development',
-  'Mobile App Development',
-  'DevOps',
-  'UI/UX Design & Development',
-  'E-commerce Development',
-  'CMS Development',
-  'Digital Marketing',
-];
-const BUDGETS = ['< $25,000', '$25,000 – $50,000', '$50,000 – $100,000', '$100,000 – $250,000', '$250,000+'];
-
 const fieldClass = "w-full bg-transparent border-b border-gold/20 focus:border-gold text-ivory py-3 text-sm outline-none transition-colors duration-300 placeholder-warmgray/40";
 const labelClass = "block text-warmgray text-xs mb-2 tracking-wide";
 
@@ -101,7 +92,7 @@ export default function Contact() {
       })
       .catch(() => {});
 
-    loadRecaptcha(RECAPTCHA_SITE_KEY);
+    // reCAPTCHA loads on submit only (avoids badge overlapping chat widget in corner)
   }, []);
 
   const handleChange = (e) => {
@@ -266,21 +257,27 @@ export default function Contact() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className={labelClass}>Project Type *</label>
-                        <select name="type" value={form.type} onChange={handleChange} required className={`${fieldClass} cursor-pointer appearance-none`} style={{ backgroundImage: 'none' }}>
-                          <option value="" className="bg-surface-dark text-warmgray">Select type</option>
-                          {PROJECT_TYPES.map((t) => (
-                            <option key={t} value={t} className="bg-surface-dark text-ivory">{t}</option>
-                          ))}
-                        </select>
+                        <FormSelectPicker
+                          name="type"
+                          value={form.type}
+                          onChange={(type) => setForm({ ...form, type })}
+                          options={CONTACT_PROJECT_TYPES}
+                          placeholder="Select type"
+                          required
+                          aria-label="Project type"
+                        />
                       </div>
                       <div>
                         <label className={labelClass}>Budget Range *</label>
-                        <select name="budget" value={form.budget} onChange={handleChange} required className={`${fieldClass} cursor-pointer appearance-none`} style={{ backgroundImage: 'none' }}>
-                          <option value="" className="bg-surface-dark text-warmgray">Select budget</option>
-                          {BUDGETS.map((b) => (
-                            <option key={b} value={b} className="bg-surface-dark text-ivory">{b}</option>
-                          ))}
-                        </select>
+                        <FormSelectPicker
+                          name="budget"
+                          value={form.budget}
+                          onChange={(budget) => setForm({ ...form, budget })}
+                          options={CONTACT_BUDGET_RANGES}
+                          placeholder="Select budget"
+                          required
+                          aria-label="Budget range"
+                        />
                       </div>
                     </div>
 

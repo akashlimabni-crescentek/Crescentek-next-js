@@ -160,3 +160,8 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #A07830;
 }
+
+/* reCAPTCHA v3 badge — hidden per Google policy when disclosure is shown in the form */
+.grecaptcha-badge {
+  visibility: hidden !important;
+}

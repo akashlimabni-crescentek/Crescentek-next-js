@@ -376,11 +376,11 @@ export default function VisitorChat() {
     : 0;
 
   return (
-    <>
+    <div data-chat-widget className="contents">
       {/* Proactive bubble */}
       {showBubble && !open && (
         <div
-          className="fixed bottom-24 right-6 z-50 max-w-[240px] rounded-2xl px-4 py-3 shadow-xl text-sm animate-slide-up"
+          className="fixed bottom-24 right-6 z-[60] max-w-[240px] rounded-2xl px-4 py-3 shadow-xl text-sm animate-slide-up"
           style={{ background: '#FAF7F2', border: '1px solid rgba(160,120,48,0.2)', color: DARK }}
         >
           <button
@@ -404,7 +404,7 @@ export default function VisitorChat() {
       {/* FAB */}
       <button
         onClick={() => setOpen(v => !v)}
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-105"
+        className="fixed bottom-6 right-6 z-[60] w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-105"
         style={{ background: GOLD }}
         aria-label="Open chat"
       >
@@ -418,7 +418,7 @@ export default function VisitorChat() {
       {/* Chat panel */}
       {open && (
         <div
-          className="fixed bottom-24 right-6 z-50 w-[340px] max-w-[calc(100vw-2rem)] rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+          className="fixed bottom-24 right-6 z-[60] w-[340px] max-w-[calc(100vw-2rem)] rounded-2xl overflow-hidden shadow-2xl flex flex-col"
           style={{
             background: '#FAF7F2',
             border: '1px solid rgba(160,120,48,0.2)',
@@ -560,6 +560,6 @@ export default function VisitorChat() {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 }

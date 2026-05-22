@@ -1,83 +1,33 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { COUNTRY_CODES } from '@/lib/countryCodes';
+import { useFloatingPicker } from '@/components/forms/useFloatingPicker';
 
 const MENU_WIDTH = 260;
 const MENU_MAX_HEIGHT = 280;
-const VIEWPORT_PADDING = 8;
 
 export default function CountryCodePicker({
   value,
   onChange,
-  tone = 'dark', // 'dark' (default, like Contact) | 'light' (for white inputs e.g. modals)
+  tone = 'dark',
   buttonClassName,
 }) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
-  const [menuPos, setMenuPos] = useState({ top: 0, left: 0, placement: 'bottom' });
-  const wrapperRef = useRef(null);
-  const buttonRef = useRef(null);
-  const menuRef = useRef(null);
   const searchRef = useRef(null);
+
+  const { wrapperRef, buttonRef, menuRef, menuPos } = useFloatingPicker({
+    open,
+    setOpen,
+    menuWidth: MENU_WIDTH,
+    menuMaxHeight: MENU_MAX_HEIGHT,
+  });
 
   const selected = value || COUNTRY_CODES.find((c) => c.label === 'United States') || COUNTRY_CODES[0];
 
   const filtered = search
     ? COUNTRY_CODES.filter((c) => c.label.toLowerCase().includes(search.toLowerCase()) || c.code.includes(search))
     : COUNTRY_CODES;
-
-  const updatePosition = () => {
-    const btn = buttonRef.current;
-    if (!btn) return;
-    const rect = btn.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const vw = window.innerWidth;
-    const spaceBelow = vh - rect.bottom - VIEWPORT_PADDING;
-    const spaceAbove = rect.top - VIEWPORT_PADDING;
-    const placeBelow = spaceBelow >= Math.min(MENU_MAX_HEIGHT, 200) || spaceBelow >= spaceAbove;
-
-    let left = rect.left;
-    if (left + MENU_WIDTH > vw - VIEWPORT_PADDING) {
-      left = Math.max(VIEWPORT_PADDING, vw - MENU_WIDTH - VIEWPORT_PADDING);
-    }
-
-    const top = placeBelow ? rect.bottom + 4 : Math.max(VIEWPORT_PADDING, rect.top - 4);
-    setMenuPos({ top, left, placement: placeBelow ? 'bottom' : 'top' });
-  };
-
-  useLayoutEffect(() => {
-    if (!open) return;
-    updatePosition();
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-    const handleScrollOrResize = () => updatePosition();
-    window.addEventListener('scroll', handleScrollOrResize, true);
-    window.addEventListener('resize', handleScrollOrResize);
-    return () => {
-      window.removeEventListener('scroll', handleScrollOrResize, true);
-      window.removeEventListener('resize', handleScrollOrResize);
-    };
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e) => {
-      const wrapper = wrapperRef.current;
-      const menu = menuRef.current;
-      if (wrapper && wrapper.contains(e.target)) return;
-      if (menu && menu.contains(e.target)) return;
-      setOpen(false);
-    };
-    const esc = (e) => { if (e.key === 'Escape') setOpen(false); };
-    document.addEventListener('mousedown', handler);
-    document.addEventListener('keydown', esc);
-    return () => {
-      document.removeEventListener('mousedown', handler);
-      document.removeEventListener('keydown', esc);
-    };
-  }, [open]);
 
   useEffect(() => {
     if (open && searchRef.current) searchRef.current.focus();
@@ -96,6 +46,7 @@ export default function CountryCodePicker({
       <button
         ref={buttonRef}
         type="button"
+        data-form-picker-trigger
         onClick={() => setOpen(!open)}
         className={
           buttonClassName
@@ -109,6 +60,7 @@ export default function CountryCodePicker({
           style={{ color: '#6B6456', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
           viewBox="0 0 12 12"
           fill="none"
+          aria-hidden
         >
           <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -150,7 +102,7 @@ export default function CountryCodePicker({
                 key={i}
                 type="button"
                 onClick={() => select(c)}
-                className="w-full flex items-center gap-3 px-3 py-2 text-left transition-colors"
+                className="w-full flex items-center gap-3 px-3 py-2 text-left transition-colors cursor-pointer"
                 style={{
                   background: selected?.label === c.label ? 'rgba(160,120,48,0.1)' : 'transparent',
                 }}

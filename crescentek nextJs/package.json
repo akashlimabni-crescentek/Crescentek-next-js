@@ -1,0 +1,37 @@
+{
+  "name": "crescentek-next-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "dev:turbo": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "sync:assets": "node scripts/sync-public-assets.mjs"
+  },
+  "dependencies": {
+    "@base44/sdk": "^0.8.30",
+    "@hubspot/api-client": "^13.5.0",
+    "@radix-ui/react-accordion": "^1.2.12",
+    "@vercel/blob": "^2.4.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.16.4",
+    "jspdf": "^4.2.1",
+    "lucide-react": "^0.475.0",
+    "next": "16.2.6",
+    "openai": "^6.38.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "simple-icons": "^16.15.0",
+    "tailwind-merge": "^3.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7"
+  }
+}
